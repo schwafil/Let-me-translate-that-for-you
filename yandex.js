@@ -31,5 +31,20 @@ function translateYandex() {
     httpRequestAsync("POST", "https://translate.yandex.net/api/v1.5/tr.json/translate?key="+APIKEY+"&text="+text+"&lang="+selectedLang, null, function (responseText) {
         console.log(responseText);
         $("#translatedText").text(JSON.parse(responseText).text[0]);
+        $("#inputText").text(text);
+        $("#fromToLang").text(JSON.parse(responseText).lang);
+        $("#saveTranslatedText").html("<input type='button' class='btn btn-primary' onclick='saveTranslation()' value='Save translation'>");
     });
+}
+
+function saveTranslation() {
+    var user_id  = localStorage.getItem("id");
+    var inputText = $("#inputText").text();
+    var translatedText = $("#translatedText").text();
+    var fromToLang = $("#fromToLang").text();
+    var data = "translatedText="+inputText+"&resultText="+translatedText+"&fromToLang="+fromToLang;
+    httpRequestAsync("POST", "https://lmttfy-matyapav.rhcloud.com/api/users/"+user_id+"/addTranslation", data , function (responseText) {
+        console.log(responseText);
+    });
+
 }
