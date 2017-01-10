@@ -1,0 +1,20 @@
+body{
+    text-align: center;
+}
+
+#write_block{
+    display: inline-block;
+    width: 400px;
+}
+.selectLanguage{
+    text-align: center;
+    padding: 20px;
+}
+
+.selectLanguage option{
+    height: 25px;
+}
+
+#textToTranslate{
+    height: 100px;
+}

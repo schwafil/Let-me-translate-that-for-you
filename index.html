@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>LMTTFY</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        var APIKEY='trnsl.1.1.20161109T192427Z.955c26961d3048cc.c884c448b42906146b4ef6013aa9a653d6a40a0a';
+    </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="common.js"></script>
+    <script type="text/javascript" src="yandex.js"></script>
+    <script type="text/javascript" src="faceboook.js"></script>
+    <script type="text/javascript" src="onDocumentReady.js"></script>
+</head>
+<body>
+<div id="main">
+    <header> <h1>Let me translate that for you</h1></header>
+    <div id="login">
+        <input type="button" id="login_btn" class="btn btn-primary" value="Login via Facebook" onclick="fblogin()">
+        <input type="button" id="logout_btn" class="btn btn-danger" value="Logout" onclick="logout();">
+        <div id="status"></div>
+        </button>
+    </div>
+    <div id="write_block">
+            <div class="selectLanguage">
+                <select class="form-control" name="fromTo" id="fromTo" size="5" required>
+                </select>
+            </div>
+            <textarea class="form-control" name="textToTranslate" id="textToTranslate" required></textarea><br>
+            <input type="button" class="btn btn-success" value="Translate" onclick="translateYandex()"/>
+            <h3 id="translatedText"></h3>
+    </div>
+</div>
+</body>
+</html>
