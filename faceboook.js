@@ -69,7 +69,7 @@ function loginToFacebook() {
     FB.api('/me',{ fields: 'id, name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " " + response.email + " " + response.id);
         console.log('Successful login for: ' + response.name + " "+response.email+" "+response.id);
-        httpRequestAsync("GET", "https://lmttfy-matyapav.rhcloud.com/users", null, function (responseText) {
+        httpRequestAsync("GET", "https://lmttfy-matyapav.rhcloud.com/api/users", null, function (responseText) {
             var userIdByEmail = null;
             var alreadyExists = false;
             if(responseText){
@@ -78,7 +78,7 @@ function loginToFacebook() {
             }
             if(!alreadyExists){
                 var data = "username="+response.name+"&email="+response.email;
-                httpRequestAsync("POST", "https://lmttfy-matyapav.rhcloud.com/users", data, function (responseText) {
+                httpRequestAsync("POST", "https://lmttfy-matyapav.rhcloud.com/api/users", data, function (responseText) {
                     console.log(JSON.parse(responseText).message);
                     userIdByEmail = JSON.parse(responseText).id;
                     saveUserIdInLocalStorage(userIdByEmail);
@@ -98,11 +98,6 @@ function loginToFacebook() {
         });
 
 
-    });
-    var username = response.name;
-    var email = response.email;
-    httpRequestAsync("POST", "lmttfy-matyapav.rhcloud.com/api/users"+"&username="+username+"&email="+email, null, function (responseText) {
-         console.log(responseText);
     });
 }
 
