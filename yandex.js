@@ -43,7 +43,7 @@ function saveTranslation() {
     var translatedText = $("#translatedText").text();
     var fromToLang = $("#fromToLang").text();
     var data = "translatedText="+inputText+"&resultText="+translatedText+"&fromToLang="+fromToLang;
-    httpRequestAsync("POST", "https://lmttfy-matyapav.rhcloud.com/api/users/"+user_id+"/addTranslation", data , function (responseText) {
+    httpRequestAsync("POST", "https://lmttfy-matyapav.rhcloud.com/api/users/addTranslation/"+user_id, data , function (responseText) {
         console.log(responseText);
     });
 
