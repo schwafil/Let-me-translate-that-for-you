@@ -51,7 +51,7 @@ window.fbAsyncInit = function() {
     if(localStorage.getItem("id")){
         checkLoginState();
     }else{
-        //performLogoutActions();
+        performLogoutActions();
     }
 
 };
@@ -68,13 +68,42 @@ function loginToFacebook() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'id, name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " " + response.email + " " + response.id);
+        console.log('Successful login for: ' + response.name + " "+response.email+" "+response.id);
+        httpRequestAsync("GET", "https://lmttfy-matyapav.rhcloud.com/users", null, function (responseText) {
+            var userIdByEmail = null;
+            var alreadyExists = false;
+            if(responseText){
+                var users = JSON.parse(responseText);
+                alreadyExists = checkIfUserAlreadyExists(users, response.email);
+            }
+            if(!alreadyExists){
+                var data = "username="+response.name+"&email="+response.email;
+                httpRequestAsync("POST", "https://lmttfy-matyapav.rhcloud.com/users", data, function (responseText) {
+                    console.log(JSON.parse(responseText).message);
+                    userIdByEmail = JSON.parse(responseText).id;
+                    saveUserIdInLocalStorage(userIdByEmail);
+                    console.log(localStorage.getItem("id"));
+                    performLoginActions();
+                    document.getElementById('status').innerHTML =
+                        'Logged as <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
+                });
+            }else{
+                userIdByEmail = users[id]._id;
+                saveUserIdInLocalStorage(userIdByEmail);
+                console.log(localStorage.getItem("id"));
+                performLoginActions();
+                document.getElementById('status').innerHTML =
+                    'Logged as <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
+            }
+        });
+
+
     });
-    // var username;
-    // var email;
-    // httpRequestAsync("POST", "lmttfy-matyapav.rhcloud.com/api/users"+"&username="+username+"&email="+email, null, function (responseText) {
-    //     console.log(responseText);
-    //     $("#translatedText").text(JSON.parse(responseText).text[0]);
-    // });
+    var username = response.name;
+    var email = response.email;
+    httpRequestAsync("POST", "lmttfy-matyapav.rhcloud.com/api/users"+"&username="+username+"&email="+email, null, function (responseText) {
+         console.log(responseText);
+    });
 }
 
 function fblogin() {
@@ -93,3 +122,37 @@ function logout(){
         performLogoutActions();
     }
 }
+
+
+function checkIfUserAlreadyExists(users, email){
+    for (id in users){
+        if(users[id].email == email){
+            return true;
+        };
+    }
+    return false;
+}
+
+function saveUserIdInLocalStorage(user_id){
+    // Check browser support
+    if (typeof(Storage) !== "undefined") {
+        // Store
+        localStorage.setItem("id", user_id);
+
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+    }
+}
+
+
+function performLoginActions() {
+    document.getElementById('login_btn').style = "display: none";
+    document.getElementById('logout_btn').style = "display: block";
+}
+
+function performLogoutActions(){
+    document.getElementById('status').innerHTML = 'Log yourself into application';
+    document.getElementById('login_btn').style = "display: block";
+    document.getElementById('logout_btn').style = "display: none";
+}
+
