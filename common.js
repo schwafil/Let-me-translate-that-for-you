@@ -9,5 +9,6 @@ function httpRequestAsync(method, theUrl, data, callback)
             callback(xmlHttp.responseText);
     }
     xmlHttp.open(method, theUrl, true); // true for asynchronous
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlHttp.send(data);
 }

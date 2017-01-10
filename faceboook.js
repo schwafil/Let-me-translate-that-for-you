@@ -85,7 +85,7 @@ function loginToFacebook() {
                     console.log(localStorage.getItem("id"));
                     performLoginActions();
                     document.getElementById('status').innerHTML =
-                        'Logged as <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
+                        'Logged as '+ response.name;
                 });
             }else{
                 userIdByEmail = users[id]._id;
@@ -93,7 +93,7 @@ function loginToFacebook() {
                 console.log(localStorage.getItem("id"));
                 performLoginActions();
                 document.getElementById('status').innerHTML =
-                    'Logged as <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
+                    'Logged as '+ response.name;
             }
         });
 
