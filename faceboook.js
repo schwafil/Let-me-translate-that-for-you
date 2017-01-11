@@ -65,10 +65,9 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 
 function loginToFacebook() {
-    console.log('Welcome!  Fetching your information.... ');
+    console.log('Unicorns working hard on this.... ');
     FB.api('/me',{ fields: 'id, name, email' }, function(response) {
-        console.log('Successful login for: ' + response.name + " " + response.email + " " + response.id);
-        console.log('Successful login for: ' + response.name + " "+response.email+" "+response.id);
+        console.log('Logged as: ' + response.name + " " + response.email + " " + response.id);
         httpRequestAsync("GET", "https://lmttfy-matyapav.rhcloud.com/api/users", null, function (responseText) {
             var userIdByEmail = null;
             var alreadyExists = false;
@@ -106,13 +105,13 @@ function fblogin() {
         if (response.authResponse) {
             checkLoginState();
         } else {
-            console.log('User cancelled login or did not fully authorize.');
+            console.log('Login cancelled, unicorns disappointed.');
         }
     }, { scope: ['email', 'user_friends'] });
 }
 
 function logout(){
-    if(confirm("Do you really want to logout?")){
+    if(confirm("Are you sure to logout?")){
         localStorage.removeItem("id");
         performLogoutActions();
     }
