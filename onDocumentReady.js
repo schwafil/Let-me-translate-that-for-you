@@ -3,5 +3,4 @@
 $(document).ready(function () {
     console.log("Document loaded.");
     getListOfSupportedLanguages();
-    $('#textToTranslate').focus();
 })

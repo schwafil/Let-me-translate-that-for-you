@@ -142,12 +142,22 @@ function saveUserIdInLocalStorage(user_id){
 
 function performLoginActions() {
     document.getElementById('login_btn').style = "display: none";
-    document.getElementById('logout_btn').style = "display: block";
+    document.getElementById('logout_btn').style = "display: inline-block";
+    document.getElementById('savedTranslationsHeader').style = "display: block";
+    if(document.getElementById('saveTranslationBtn') != null || document.getElementById('saveTranslationBtn') != undefined){
+        document.getElementById('saveTranslationBtn').style = 'display: inline-block';
+    }
+    getSavedTranslationsOfLoggedUser();
 }
 
 function performLogoutActions(){
     document.getElementById('status').innerHTML = 'Log yourself into application';
-    document.getElementById('login_btn').style = "display: block";
+    document.getElementById('login_btn').style = "display: inline-block";
     document.getElementById('logout_btn').style = "display: none";
+    document.getElementById('savedTranslationsHeader').style = "display: none";
+    document.getElementById('savedTranslations').innerHTML = "";
+    if(document.getElementById('saveTranslationBtn') != null || document.getElementById('saveTranslationBtn') != undefined){
+        document.getElementById('saveTranslationBtn').style = 'display: none';
+    }
 }
 

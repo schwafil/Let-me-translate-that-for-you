@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>LMTTFY</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        var APIKEY='trnsl.1.1.20161109T192427Z.955c26961d3048cc.c884c448b42906146b4ef6013aa9a653d6a40a0a';
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="common.js"></script>
+    <script type="text/javascript" src="yandex.js"></script>
+    <script type="text/javascript" src="onDocumentReady.js"></script>
+</head>
+<body>
+<div id="main">
+    <header> <h1>Let me translate that for you</h1></header>
+    <div id="write_block">
+        <div class="selectLanguage">
+            <select class="form-control" name="fromTo" id="fromTo" size="5" required>
+            </select>
+        </div>
+        <textarea class="form-control" name="textToTranslate" id="textToTranslate" required></textarea><br>
+        <input type="button" id="translateButton" class="btn btn-success" value="Translate" onclick="translateYandex()"/>
+        <h3 id="translatedText"></h3>
+        <h4 id="inputText"></h4>
+        <h4 id="fromToLang"></h4>
+        <div id ="animate"></div>
+        <a href="https://schwafil.github.io/Let-me-translate-that-for-you/" target="_blank">Start using application too!</a>
+    </div>
+    <script>
+        function moveMouseOnTranslateButtonAndClick() {
+            console.log($('#translateButton').position().top)
+            var elem = document.getElementById("animate");
+            var postop = 0;
+            var posleft = 0;
+            var inc = 3;
+            var id = setInterval(frame, 5);
+            function frame() {
+                if (postop >= $('#translateButton').position().top && posleft >= $('#translateButton').position().left) {
+                    clearInterval(id);
+                    $('#translateButton').click();
+                    $('#fromTo').attr('disabled', false);
+                    $('#textToTranslate').attr('disabled',false);
+                } else {
+                    if(postop >= $('#translateButton').position().top){
+                        posleft+=inc;
+                        elem.style.left = posleft + 'px';
+                    }else if(posleft >= $('#translateButton').position().left){
+                        postop+=inc;
+                        elem.style.top = postop+'px';
+                    }else{
+                        posleft+=inc;
+                        postop+=inc;
+                        elem.style.top = postop + 'px';
+                        elem.style.left = posleft + 'px';
+                    }
+                }
+            }
+        }
+    </script>
+
+</div>
+</body>
+</html>
