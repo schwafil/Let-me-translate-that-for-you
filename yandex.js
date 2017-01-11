@@ -61,6 +61,7 @@ function translateYandex() {
                 " <input type='button' class='btn btn-primary' onclick='showLink()' value='Share translation via Link'>");
         }
         $("#linkToShare").html("");
+        $("#copyMsg").html("");
     });
 }
 
@@ -68,7 +69,13 @@ function showLink() {
     var inputText = encodeURI($("#inputText").text());
     var lang = $("#fromToLang").text();
     $("#linkToShare").html("<input type='text' id='link' readonly='readonly' style='width: 250px'" +
-        " value='https://schwafil.github.io/Let-me-translate-that-for-you/showTranslation?input="+inputText+"&language="+lang+"'/>");
+        " value='https://schwafil.github.io/Let-me-translate-that-for-you/showTranslation?input="+inputText+"&language="+lang+"'/>" +
+        "<button id='copyBtn' class='btn btn-success' data-clipboard-target='#link'>Copy</button>");
+    var clipboard = new Clipboard('#copyBtn');
+    clipboard.on('success', function (e) {
+        $("#copyMsg").html('<br><span style="color: deepskyblue">Copied to clipboard</span>');
+        $("#copyMsg").fadeIn(100).fadeOut(0).fadeIn(1000);
+    })
 
 }
 

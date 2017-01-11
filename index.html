@@ -14,6 +14,7 @@
     <script type="text/javascript" src="yandex.js"></script>
     <script type="text/javascript" src="onDocumentReady.js"></script>
     <script type="text/javascript" src="faceboook.js"></script>
+    <script type="text/javascript" src="clipboard.js-master/dist/clipboard.min.js"></script>
 </head>
 <body>
 <div id="main">
@@ -24,7 +25,7 @@
         <div id="status"></div>
         </button>
     </div>
-    <div id="write_block">
+    <div id="write_block" class="copytxt">
             <div class="selectLanguage">
                 <select class="form-control" name="fromTo" id="fromTo" size="5" required>
                 </select>
@@ -35,7 +36,8 @@
             <h4 id="inputText"></h4>
             <h4 id="fromToLang"></h4>
             <div id="saveTranslatedText"></div>
-            <div id="linkToShare"></div>
+            <div id="copyMsg"></div>
+            <div id="linkToShare" class="copytext"></div>
     </div>
     <h2 id="savedTranslationsHeader">Your saved translations.</h2>
     <div id="savedTranslations">
