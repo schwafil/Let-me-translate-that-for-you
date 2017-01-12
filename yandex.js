@@ -2,14 +2,15 @@
  * Created by fisch on 10.01.2017.
  */
 function getListOfSupportedLanguages() {
-    httpRequestAsync("POST", "https://translate.yandex.net/api/v1.5/tr.json/getLangs?key="+APIKEY, null, function (responseText) {
+    httpRequestAsync("POST", "https://translate.yandex.net/api/v1.5/tr.json/getLangs?ui=en&key="+APIKEY, null, function (responseText) {
         console.log(responseText);
         var jsonObj = JSON.parse(responseText);
         var selectLanguage = document.getElementById("fromTo");
         for(var i in jsonObj.dirs){
             var opt = document.createElement("option");
+            var tmp = jsonObj.dirs[i].split("-");
             opt.value = jsonObj.dirs[i];
-            opt.textContent = jsonObj.dirs[i];
+            opt.textContent = jsonObj.langs[tmp[0]] +" - "+ jsonObj.langs[tmp[1]];
             selectLanguage.appendChild(opt);
         }
         checkUrlParameters();
